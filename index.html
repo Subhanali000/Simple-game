@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Character encoding for the document -->
+    <meta charset="UTF-8">
+    
+    <!-- Viewport meta tag to ensure responsive design for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Title of the page, which appears in the browser tab -->
+    <title>Simple Game</title>
+    
+    <!-- Link to the external CSS file for styling the page -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Game Area (Container for the game content) -->
+    <div id="gameArea">
+        <!-- Background Image of the game area -->
+        <div id="bg_img" alt="background image"></div>
+        
+        <!-- Air Pump Handle (Element that can be interacted with to pump air) -->
+        <div id="pump_handle"></div>
+        
+        <!-- Air Nuzzle (Part of the air pump where the balloon is inflated) -->
+        <div id="air_nuzzle"></div>
+        
+        <!-- Air Pump Machine (The machine element for inflating the balloon) -->
+        <div id="air_pump_machine"></div>
+        
+        <!-- Pause Button (Allows users to pause the game) -->
+        <button id="pauseButton">Pause</button> 
+        
+        <!-- Pop Sound (Audio element for the balloon popping sound effect) -->
+        <audio id="popSound" src="/images/pop sund.mp3"></audio>
+    </div>
+    
+    <!-- Link to the external JavaScript file that controls game logic -->
+    <script src="game.js"></script>
+</body>
+</html>
