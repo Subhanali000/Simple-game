@@ -455,7 +455,7 @@ function triggerBlast(balloonData) {
         if (gamePaused) {
             resumeGame();
             pauseButton.innerHTML = "Pause";
-        } else {
+        } else { 
             pauseGame();
             pauseButton.innerHTML = "Resume";
         }
