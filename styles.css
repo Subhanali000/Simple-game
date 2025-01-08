@@ -1,232 +1,461 @@
 /* General Reset */
 * {
-    margin: 0; /* Remove default margin from all elements */
-    padding: 0; /* Remove default padding from all elements */
-    box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
+  margin: 0; /* Remove default margin from all elements */
+  padding: 0; /* Remove default padding from all elements */
+  box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
 }
 
 /* Body Styles */
 body {
-    margin: 0; /* Remove default margin from the body */
-    overflow: hidden; /* Hide scrollbars to ensure no scroll on the screen */
-    display: flex; /* Use flexbox to center the content */
-    justify-content: center; /* Horizontally center the content */
-    align-items: center; /* Vertically center the content */
-    height: 100vh; /* Make body take up full viewport height */
-    background-color: #ffffff; /* Set a white background for the body */
+  margin: 0; /* Remove default margin from the body */
+  overflow: hidden; /* Hide scrollbars to ensure no scroll on the screen */
+  display: flex; /* Use flexbox to center the content */
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+  height: 100vh; /* Make body take up full viewport height */
+  background-color: #f9f9f9; /* Set a white background for the body */
 }
 
 /* Game Area */
 #gameArea {
-    width: 100vw;  /* Ensure the game area takes up the full viewport width */
-    height: 100vh; /* Ensure the game area takes up the full viewport height */
-    position: relative; /* Make the game area a reference point for absolutely positioned elements */
+  width: 100vw; /* Ensure the game area takes up the full viewport width */
+  height: 100vh; /* Ensure the game area takes up the full viewport height */
+  position: relative; /* Make the game area a reference point for absolutely positioned elements */
 }
 
 /* Background Image */
 #gameArea #bg_img {
-    width: 100%; /* Make the background cover the full width of the game area */
-    height: 100%; /* Make the background cover the full height of the game area */
-    background-image: url("/images/bg screen image.png"); /* Set the background image */
-    background-size: cover; /* Ensure the background image covers the entire area */
-    background-position: center; /* Center the background image */
-    position: absolute; /* Position the background absolutely within the game area */
-    top: 0; /* Align the top edge of the background with the top of the game area */
-    left: 0; /* Align the left edge of the background with the left of the game area */
+  width: 125rem; /* Make the background cover the full width of the game area */
+  height: 61rem; /* Make the background cover the full height of the game area */
+  background-image: url("/images/bg screen image.png"); /* Set the background image */
+  background-size: cover; /* Ensure the background image covers the entire area */
+  background-position: center; /* Center the background image */
+  position: absolute; /* Position the background absolutely within the game area */
+  top: 0; /* Align the top edge of the background with the top of the game area */
+  left: 0; /* Align the left edge of the background with the left of the game area */
 }
 
 /* Air Pump Machine */
 #gameArea #air_pump_machine {
-    padding: 8%; /* Add padding to the pump machine for some internal space */
-    background-image: url("/images/air pumping machine.png"); /* Set the pump machine image */
-    background-size: 110%; /* Adjust the background size */
-    background-repeat: no-repeat; /* Prevent repeating the background image */
-    position: absolute; /* Position the pump machine absolutely within the game area */
-    left: 83%; /* Position the pump machine near the right edge */
-    top: 68%; /* Position the pump machine near the bottom */
-    transition: transform 0.6s ease-in-out; /* Smooth transition effect for transformations */
-    z-index: 10;  /* Set a higher z-index to bring the pump in front of other elements */
+  pointer-events: none; /* Disable pointer events */
+  padding: 8rem; /* Add padding to the pump machine for some internal space */
+  background-image: url("/images/air pumping machine.png"); /* Set the pump machine image */
+  background-size: 12rem; /* Adjust the background size */
+  background-repeat: no-repeat; /* Prevent repeating the background image */
+  position: absolute; /* Position the pump machine absolutely within the game area */
+  left: 107rem; /* Position the pump machine near the right edge */
+  top: 45rem; /* Position the pump machine near the bottom */
+  transition: transform 0.6s ease-in-out; /* Smooth transition effect for transformations */
+  z-index: 10; /* Set a higher z-index to bring the pump in front of other elements */
 }
 
 /* Pump Handle */
 #gameArea #pump_handle {
-    padding: 6%; /* Add padding to the pump handle */
-    background-image: url("/images/pump handle.png"); /* Set the pump handle image */
-    background-size: 110%; /* Adjust the background size */
-    background-repeat: no-repeat; /* Prevent repeating the background image */
-    position: absolute; /* Position the pump handle absolutely within the game area */
-    left: 85%; /* Position the handle to the right */
-    top: 55%; /* Position the handle towards the top */
-    cursor: pointer; /* Change the cursor to a pointer when hovering */
-    transition: transform 0.7s ease-in-out; /* Smooth transition effect for transformations */
-    z-index: 5;  /* Lower z-index so it appears behind the air pump machine */
-    width: 80px;   /* Set the width of the pump handle */
-    height: 150px;  /* Set the height of the pump handle */
+  pointer-events: none; /* Disable pointer events */
+  padding: 6rem; /* Add padding to the pump handle */
+  background-image: url("/images/pump handle.png"); /* Set the pump handle image */
+  background-size: 110%; /* Adjust the background size */
+  background-repeat: no-repeat; /* Prevent repeating the background image */
+  position: absolute; /* Position the pump handle absolutely within the game area */
+  left: 106rem; /* Position the handle to the right */
+  top: 39rem; /* Position the handle towards the top */
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
+  transition: transform 0.7s ease-in-out; /* Smooth transition effect for transformations */
+  z-index: 5; /* Lower z-index so it appears behind the air pump machine */
+  width: 2rem; /* Set the width of the pump handle */
+  height: 15rem; /* Set the height of the pump handle */
 }
 
 /* Air Nuzzle */
 #gameArea #air_nuzzle {
-    padding: 7%; /* Add padding to the air nuzzle */
-    background-image: url("/images/air_nuzzle.png"); /* Set the air nuzzle image */
-    background-size: 110%; /* Adjust the background size */
-    background-repeat: no-repeat; /* Prevent repeating the background image */
-    position: absolute; /* Position the air nuzzle absolutely within the game area */
-    left: 74.8%; /* Position the air nuzzle towards the left */
-    top: 68%; /* Position the air nuzzle near the bottom */
-    transition: transform 0.6s ease-in-out; /* Smooth transition effect for transformations */
-    z-index: 2; /* Set a higher z-index to bring the air nuzzle in front of the thread */
+  pointer-events: none; /* Disable pointer events */
+  padding: 7rem; /* Add padding to the air nuzzle */
+  background-image: url("/images/air_nuzzle.png"); /* Set the air nuzzle image */
+  background-size: 13rem; /* Adjust the background size */
+  background-repeat: no-repeat; /* Prevent repeating the background image */
+  position: absolute; /* Position the air nuzzle absolutely within the game area */
+  left: 99.3rem; /* Position the air nuzzle towards the left */
+  top: 43rem; /* Position the air nuzzle near the bottom */
+  transition: transform 0.6s ease-in-out; /* Smooth transition effect for transformations */
+  z-index: 2; /* Set a higher z-index to bring the air nuzzle in front of the thread */
 }
 
 /* Balloon Styles */
 #gameArea .balloon {
-    background-size: cover; /* Ensure the balloon image is properly sized */
-    background-repeat: no-repeat; /* Prevent repeating the balloon image */
-    position: absolute; /* Position the balloon absolutely within the game area */
-    opacity: 0; /* Set initial opacity to 0, balloon is invisible at first */
-    left: 79%; /* Position the balloon towards the right */
-    width: 200px; /* Set the width of the balloon */
-    height: 250px; /* Set the height of the balloon */
-    bottom: 22%; /* Position the balloon towards the bottom */
-    cursor: pointer; /* Change the cursor to a pointer when hovering */
-    transform: translateX(-50%) scale(0); /* Start with scale 0 for the animation */
-    transition: left 0.2s linear, top 0.5s linear, transform 0.2s ease, opacity 0.3s ease; /* Smooth transitions for movement, scaling, and opacity */
-    z-index: 1; /* Ensure the balloon is above other elements */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight color on mobile devices */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-drag: none; /* Prevent drag highlight */
+  transform-origin: bottom center; /* Set the origin for scaling */
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
+  transform: translateX(-50%) scale(0); /* Start with scale 0 for the animation */
+  transition: left 0.2s linear, top 0.5s linear, transform 0.2s ease, opacity 0.3s ease; /* Smooth transitions for movement, scaling, and opacity */
+  z-index: 1; /* Ensure the balloon is above other elements */
 }
 
 /* Balloon Inflate Animation */
 @keyframes balloonInflate {
-    0% {
-        transform: translateX(-50%) scale(0); /* Start with scale 0 */
-        opacity: 0; /* Balloon is invisible at the start */
-    }
-    100% {
-        transform: translateX(-50%) scale(1.2); /* Inflate the balloon to 1.2x its size */
-        opacity: 1; /* Make the balloon fully visible */
-    }
+  0% {
+    transform: translateX(-50rem) scale(0); /* Start with scale 0 */
+    opacity: 0; /* Balloon is invisible at the start */
+  }
+  100% {
+    transform: translateX(-50rem) scale(1.2); /* Inflate the balloon to 1.2x its size */
+    opacity: 1; /* Make the balloon fully visible */
+  }
 }
 
 /* Balloon Flying Animation */
 @keyframes balloonFly {
-    0% {
-        transform: translateX(-50%) scale(0.2); /* Start small */
-        opacity: 1; /* Balloon is visible */
-    }
-    100% {
-        transform: translateX(-50%) scale(0); /* Shrink the balloon to 0 */
-        opacity: 0; /* Make the balloon invisible */
-        bottom: 100%; /* Move the balloon upwards out of the screen */
-    }
+  0% {
+    transform: translateX(-50%) scale(0.2); /* Start small */
+    opacity: 1; /* Balloon is visible */
+  }
+  100% {
+    transform: translateX(-50%) scale(0); /* Shrink the balloon to 0 */
+    opacity: 0; /* Make the balloon invisible */
+    bottom: 100%; /* Move the balloon upwards out of the screen */
+  }
 }
 
 /* Pumping Effect */
 @keyframes pumpMove {
-    0% {
-        transform: translateY(0); /* Initial position */
-    }
-    50% {
-        transform: translateY(20px); /* Move down slightly */
-    }
-    100% {
-        transform: translateY(0); /* Return to original position */
-    }
+  0% {
+    transform: translateY(0); /* Initial position */
+  }
+  50% {
+    transform: translateY(3rem); /* Move down slightly */
+  }
+  100% {
+    transform: translateY(0); /* Return to original position */
+  }
 }
 
+/* Pump Handle Pumping Animation */
 #gameArea #pump_handle.pumping {
-    animation: pumpMove 0.5s ease-in-out; /* Apply the pumpMove animation */
+  animation: pumpMove 0.5s ease-in-out; /* Apply the pumpMove animation */
 }
 
+/* Air Pump Machine Pumping Animation */
 #gameArea #air_pump_machine.pumping {
-    transform: translateY(20px); /* Move the air pump machine down slightly */
+  transform: translateY(20px); /* Move the air pump machine down slightly */
 }
 
+/* Air Nuzzle Pumping Animation */
 #gameArea #air_nuzzle.pumping {
-    transform: translateY(20px); /* Move the air nuzzle down slightly */
+  transform: translateY(20px); /* Move the air nuzzle down slightly */
 }
 
 /* Balloon Floating Animation */
 @keyframes balloonFloat {
-    0% {
-        transform: translate(0, 0); /* Start at the original position */
-    }
-    50% {
-        transform: translate(-10px, -10px); /* Move slightly left and up */
-    }
-    100% {
-        transform: translate(10px, -20px); /* Move slightly right and more upwards */
-    }
+  0% {
+    transform: translate(0, 0); /* Start at the original position */
+  }
+  50% {
+    transform: translate(-10px, -10px); /* Move slightly left and up */
+  }
+  100% {
+    transform: translate(10px, -20px); /* Move slightly right and more upwards */
+  }
 }
 
+/* Apply Floating Animation to Balloon */
 #balloon-float {
-    animation: balloonFloat 1.5s infinite alternate ease-in-out; /* Apply floating animation repeatedly */
-}
-
-/* Thread Styles */
-#thread {
-    position: absolute; /* Position the thread absolutely within the game area */
-    width: 2px; /* Set the thickness of the thread */
-    background-color: black; /* Set the thread color to black */
-    transform-origin: top center; /* Set the transform origin for rotations */
-    transition: height 0.3s ease-in-out; /* Smooth transition for height changes */
-    opacity: 0; /* Make the thread initially invisible */
-    transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+  animation: balloonFloat 1.5s infinite alternate ease-in-out; /* Apply floating animation repeatedly */
 }
 
 /* Balloon Styles */
 #balloon {
-    position: absolute; /* Position the balloon absolutely */
-    cursor: pointer; /* Change the cursor to a pointer when hovering */
-    transition: transform 0.2s ease-in-out; /* Smooth transition for transformations */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight color on mobile devices */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-drag: none; /* Prevent drag highlight */
+  position: absolute; /* Position the balloon absolutely */
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
 }
 
 /* Balloon Pop Effect */
 .balloon-blast {
-    animation: pop 0.3s ease-out forwards; /* Apply pop animation when the balloon bursts */
+  animation: pop 0.3s ease-out forwards; /* Apply pop animation when the balloon bursts */
 }
 
+/* Pop Animation */
 @keyframes pop {
-    0% {
-        transform: scale(1); /* Start at normal size */
-        opacity: 1; /* Balloon is visible */
-    }
-    50% {
-        transform: scale(1.5); /* Enlarge the balloon slightly */
-        opacity: 0.8; /* Slightly fade the balloon */
-    }
-    100% {
-        transform: scale(0); /* Shrink the balloon to 0 */
-        opacity: 0; /* Make the balloon fully invisible */
-    }
+  0% {
+    transform: scale(1); /* Start at normal size */
+    opacity: 1; /* Balloon is visible */
+  }
+  50% {
+    transform: scale(1.5); /* Enlarge the balloon slightly */
+    opacity: 0.8; /* Slightly fade the balloon */
+  }
+  100% {
+    transform: scale(0); /* Shrink the balloon to 0 */
+    opacity: 0; /* Make the balloon fully invisible */
+  }
 }
 
-/* Particle animation (optional, for smooth scaling) */
+/* Particle Animation (optional, for smooth scaling) */
 .particle {
-    position: absolute; /* Position the particle absolutely */
-    transition: transform 1.5s ease-out, opacity 1.5s ease-out; /* Smooth animation for particle movement */
-    pointer-events: none; /* Prevent interaction with the particles */
+  position: absolute; /* Position the particle absolutely */
+  transition: transform 1.5s ease-out, opacity 1.5s ease-out; /* Smooth animation for particle movement */
+  pointer-events: none; /* Prevent interaction with the particles */
 }
 
 /* Stop Button */
 #pauseButton {
-    position: absolute; /* Position the pause button at the top-right corner */
-    top: 10px; /* Place 10px from the top */
-    right: 10px; /* Place 10px from the right */
-    width: 80px; /* Set the width of the button */
-    height: 80px; /* Set the height of the button */
-    font-size: 18px; /* Set the font size of the text inside */
-    border: 5px solid rgb(0, 0, 0); /* Set a solid black border */
-    border-radius: 50%; /* Make the button circular */
-    border-color: rgb(2, 1, 1); /* Set the border color */
-    background-color: rgba(244, 3, 3, 0.7); /* Set the background color */
-    color: rgb(0, 0, 0); /* Set the text color to black */
-    stroke: black; /* Set stroke color */
-    stroke-width: 2vh solid black; /* Set the stroke width */
-    cursor: pointer; /* Change the cursor to a pointer when hovering */
-    z-index: 100; /* Ensure the button is on top of other elements */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Apply a subtle shadow */
-    transition: transform 0.2s, background-color 0.2s; /* Smooth transition for scaling and background color */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight color on mobile devices */
+  outline: none; /* Remove outline */
+  user-select: none; /* Prevent text selection */
+  position: absolute; /* Position the pause button at the top-right corner */
+  top: 2rem; /* Place 2rem from the top */
+  left: 113rem; /* Place 113rem from the left */
+  width: 5rem; /* Set the width of the button */
+  height: 5rem; /* Set the height of the button */
+  font-size: 1.01rem; /* Set the font size of the text inside */
+  border: 0.5rem solid rgb(0, 0, 0); /* Set a solid black border */
+  border-radius: 50rem; /* Make the button circular */
+  border-color: rgb(2, 1, 1); /* Set the border color */
+  background-color: rgba(244, 3, 3, 0.7); /* Set the background color */
+  color: rgb(0, 0, 0); /* Set the text color to black */
+  stroke: black; /* Set stroke color */
+  stroke-width: 200vh solid black; /* Set the stroke width */
+  cursor: pointer; /* Change the cursor to a pointer when hovering */
+  z-index: 100; /* Ensure the button is on top of other elements */
+  box-shadow: none; /* Apply a subtle shadow */
+  transition: transform 0.2s, background-color 0.2s; /* Smooth transition for scaling and background color */
 }
 
+/* Pause Button Hover Effect */
 #pauseButton:hover {
-    background-color: rgba(24, 208, 64, 0.9); /* Change background color on hover */
-    transform: scale(1.1); /* Slightly enlarge the button on hover */
+  background-color: rgba(72, 255, 0, 0.9); /* Change background color on hover */
+  transform: scale(1.1); /* Slightly enlarge the button on hover */
 }
+
+/* Orientation Message */
+#orientationMessage {
+  size: 340rem; /* Set the size */
+  display: none; /* Hidden in landscape mode */
+  align-items: center; /* Center align items */
+  justify-content: center; /* Center justify content */
+  background-repeat: no-repeat; /* Prevent background repeat */
+  color: #ffffff; /* Set text color */
+  font-size: 1.5rem; /* Set font size */
+  text-align: center; /* Center align text */
+}
+
+/* For responsive design */
+@media screen and (orientation: landscape) {
+  #orientationMessage {
+    display: none; /* Hide orientation message in landscape mode */
+  }
+
+  #gameArea {
+    display: block; /* Show game area in landscape mode */
+  }
+}
+
+@media screen and (orientation: portrait) {
+  #orientationMessage {
+    display: flex; /* Show orientation message in portrait mode */
+  }
+
+  #gameArea {
+    display: none; /* Hide game area in portrait mode */
+  }
+}
+
+/* Fullscreen Background */
+#fullscreenBackground {
+  position: fixed; /* Fix position */
+  top: 0; /* Align to top */
+  left: 0; /* Align to left */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-image: url('/images/bg\ images\ 3.jpg'); /* Set background image */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the background image */
+  z-index: -1; /* Place behind other content */
+}
+
+/* Point Display */
+.point-display {
+  position: absolute; /* Position absolutely */
+  font-size: 20px; /* Set font size */
+  color: #ff0800; /* Set text color */
+  user-select: none; /* Prevent text selection */
+  font-weight: bold; /* Set font weight */
+  opacity: 0; /* Set initial opacity */
+  transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth transition for opacity and transform */
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+/* Score Display */
+#scoreDisplay {
+  width: 17rem; /* Set the width of the box */
+  height: 4rem; /* Set the height of the box */
+  border-radius: 10rem; /* Set the border radius */
+  background-image: url(/images/bg\ image.jpeg); /* Set the background image */
+  background-repeat: no-repeat; /* Prevent background repeat */
+  background-size: 270px; /* Set background size */
+  background-position: center; /* Center the background image */
+  border: 2px solid #000; /* Set the border of the box */
+  padding: 20px; /* Add padding inside the box */
+  cursor: none; /* Remove cursor */
+  margin: 20px; /* Add margin outside the box */
+  box-shadow: 4px 4px 10px rgb(10, 20, 40, 2); /* Add box shadow */
+  font-weight: bolder; /* Set font weight */
+  position: absolute; /* Position absolutely */
+  display: flex; /* Use flexbox */
+  pointer-events: none; /* Disable pointer events */
+  justify-content: center; /* Horizontally center the text */
+  align-items: center; /* Vertically center the text */
+  -webkit-text-stroke: #5c2c07 1px; /* Add a stroke to the text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Set font family */
+  font-size: 30px; /* Set font size */
+  user-select: none; /* Prevent text selection */
+  color: rgb(54, 239, 128); /* Set text color */
+}
+#cloud {
+  position: absolute; /* Position absolutely */
+  background-size: contain; /* Ensure the cloud scales proportionally */
+  background-repeat: no-repeat; /* Prevent tiling of the cloud image */
+  background-image: url('/images/cloud.png'); /* Set background image */
+  opacity: 1;
+  width: 900px; /* Set the width of the cloud */
+  height: 400px; /* Set the height of the cloud */
+  
+  top: 50%; /* Position vertically in the middle (adjust as needed) */
+  left: -200px; /* Start cloud outside the screen (from the left) */
+
+  animation: moveClouds 50s linear infinite; /* Animate cloud movement */
+}
+
+@keyframes moveClouds {
+  0% {
+    left: -500px; /* Start from outside the left */
+  }
+  100% {
+    left: 300%; /* Move to the far right, completely out of view */
+  }
+}
+#cloud1 {
+  position: absolute; /* Position absolutely */
+  background-size: contain; /* Ensure the cloud scales proportionally */
+  background-repeat: no-repeat; /* Prevent tiling of the cloud image */
+  background-image: url('/images/cloud.png'); /* Set background image */
+  opacity: 1;
+  width: 900px; /* Set the width of the cloud */
+  height: 300px; /* Set the height of the cloud */
+  
+  top: 10%; /* Position vertically in the middle (adjust as needed) */
+  left: -200px; /* Start cloud outside the screen (from the left) */
+
+  animation: moveCloudsRight 130s linear infinite; /* Animate cloud movement */
+}
+
+@keyframes moveCloudsRight {
+  0% {
+    left: -70px; /* Start from outside the left */
+  }
+  100% {
+    left: 300%; /* Move to the far right, completely out of view */
+  }
+}
+#cloud2 {
+  position: absolute; /* Position absolutely */
+  background-size: contain; /* Ensure the cloud scales proportionally */
+  background-repeat: no-repeat; /* Prevent tiling of the cloud image */
+  background-image: url('/images/cloud.png'); /* Set background image */
+  opacity: 1;
+  width: 900px; /* Set the width of the cloud */
+  height: 150px; /* Set the height of the cloud */
+  
+  top: 40%; /* Position vertically in the middle (adjust as needed) */
+  left: 100%; /* Start cloud outside the screen (from the right) */
+
+  animation: moveCloudsLeft 80s linear infinite; /* Animate cloud movement */
+}
+
+@keyframes moveCloudsLeft {
+  0% {
+    left: 100%; /* Start from outside the right */
+  }
+  100% {
+    left: -900px; /* Move to the far left, completely out of view */
+  }
+}
+
+#birds {
+  position: absolute;
+  background-size: contain; /* Make sure the bird image scales properly */
+  background-image: flip;
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-image: url('/images/birds2.gif'); /* Bird image with mouth on the left side */
+  
+  width: 3rem; /* Width of the bird */
+  height: 3rem; /* Height of the bird */
+  
+  top: 30%; /* Position birds vertically at a random height */
+  left: 100rem; /* Start bird off-screen to the right */
+  
+  animation: moveBirds 40s linear infinite, flapBirds 1s infinite; /* Move and flap animation */
+}
+
+@keyframes moveBirds {
+  0% {
+    left: 150rem; /* Start bird off-screen to the right */
+  }
+  100% {
+    left: -500px; /* Move bird to the far left */
+  }
+}
+
+@keyframes flapBirds {
+  0% {
+    transform: rotate(0deg); /* No rotation */
+  }
+  50% {
+    transform: rotate(15deg); /* Slight upward flap */
+  }
+  100% {
+    transform: rotate(0deg); /* Back to normal */
+  }
+}
+#birds1 {
+  position: absolute;
+  background-size: contain; /* Make sure the bird image scales properly */
+  background-image: flip;
+  background-repeat: no-repeat; /* Prevent tiling */
+  background-image: url('/images/birds.gif'); /* Bird image with mouth on the left side */
+  
+  width: 30rem; /* Width of the bird */
+  height: 8rem; /* Height of the bird */
+  
+  top: 30rem; /* Position birds vertically at a random height */
+  left: -500px; /* Start bird off-screen to the left */
+  
+  animation: moveBirdsRight 20s linear infinite, flapBirds 1s infinite; /* Move and flap animation */
+}
+
+@keyframes moveBirdsRight {
+  0% {
+    left: -500px; /* Start bird off-screen to the left */
+  }
+  100% {
+    left: 100%; /* Move bird to the far right */
+  }
+}
+
+@keyframes flapBirds {
+  0% {
+    transform: rotate(0deg); /* No rotation */
+  }
+  50% {
+    transform: rotate(15deg); /* Slight upward flap */
+  }
+  100% {
+    transform: rotate(0deg); /* Back to normal */
+  }
+}
+
+
+

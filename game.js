@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const airPumpMachine = document.getElementById("air_pump_machine");
     const gameArea = document.getElementById("gameArea");
     const pauseButton = document.getElementById("pauseButton");
-
-    // State variables
+    const scoreDisplay = document.getElementById("scoreDisplay"); // Score display element
     let balloons = []; // Active balloons in the game
     let isPumping = false; // Flag to avoid rapid pumping actions
     let gamePaused = false; // Flag for game pause/resume state
     let pausedBalloonStates = []; // Store balloon states when game is paused
+    let score = 0; // Score variable to keep track of points
 
     const maxInflation = 4; // Number of clicks required to make a balloon fly
     const balloonImages = [
@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
         balloon.style.backgroundSize = "cover";
         balloon.style.position = "absolute";
         balloon.style.opacity = "0";
-        balloon.style.left = "79%";
-        balloon.style.bottom = "22%";
+        balloon.style.left = "102.8rem";
+        balloon.style.bottom = "10%";
         balloon.style.cursor = "pointer";
         balloon.style.transform = "translateX(-50%) scale(0)";
+
         gameArea.appendChild(balloon);
 
         // Create and position alphabet image inside the balloon
@@ -59,16 +60,19 @@ document.addEventListener("DOMContentLoaded", () => {
         alphabetImage.style.width = "60%"; 
         balloon.appendChild(alphabetImage);
 
-        // Balloon data object
+        // Balloon data object with random score
         const balloonData = {
             element: balloon,
             alphabetImage: alphabetImage,
             size: 60,
             clickCount: 0,
             isFloating: false,
-            dx: -52 + Math.random() * 20 - 10, // Random horizontal velocity
+            isPopped: false, // New flag
+            dx: -45 + Math.random() * 20 - 10, // Random horizontal velocity
             dy: -62 + Math.random() * 10 - 5,  // Random vertical velocity
+            score: Math.floor(Math.random() * (600 - 100 + 1)) + 100 // Random score
         };
+        
 
         // Balloon click event to trigger burst
         balloon.addEventListener("click", () => triggerBlast(balloonData));
@@ -86,6 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const randomIndex = Math.floor(Math.random() * alphabetImages.length);
         return alphabetImages[randomIndex];
     }
+
+    // The rest of the code for pump action, balloon inflation, and other logic remains unchanged
+
+
 
     // Pump action logic (triggered at regular intervals)
     function pumpAction() {
@@ -129,33 +137,29 @@ document.addEventListener("DOMContentLoaded", () => {
         return balloonRect.top < screenHeight && balloonRect.bottom > 0 && balloonRect.left < screenWidth && balloonRect.right > 0;
     }
 
-    // Position the balloon near the nozzle ready for inflation
-    function positionBalloonAtNozzle(balloonData) {
-        const balloon = balloonData.element;
-        balloon.style.opacity = "1";
-        balloon.style.left = "79%";
-        balloon.style.bottom = "23%";
-        balloon.style.transform = "translateX(-50%) scale(1.2)"; 
+   // Inflate the balloon by increasing its size upwards
+function inflateBalloon(balloonData) {
+    const balloon = balloonData.element;
+    balloonData.clickCount++;
+    balloonData.size += 20; // Increase balloon size with each pump
+
+    const balloonWidth = balloonData.size * 1.2;
+    const balloonHeight = balloonData.size * 1.2; 
+    balloon.style.width = `${balloonWidth}px`;
+    balloon.style.height = `${balloonHeight}px`;
+    
+    
+    // Change balloon's position and scale to inflate upwards
+    balloon.style.transform = `translateX(-50%) translateY(${-(balloonHeight - balloonData.size) / 2}px) scale(1)`;
+
+    // Make the balloon fly once fully inflated
+    if (balloonData.clickCount >= maxInflation && !balloonData.isFloating) {
+        makeBalloonFly(balloonData);
     }
+}
 
-    // Inflate the balloon by increasing its size
-    function inflateBalloon(balloonData) {
-        const balloon = balloonData.element;
-        balloonData.clickCount++;
-        balloonData.size += 20; // Increase balloon size with each pump
+// Position the balloon near the nozzle ready for inflation (adjusted for upward inflation)
 
-        // Adjust size of balloon
-        const balloonWidth = balloonData.size * 1.2;
-        const balloonHeight = balloonData.size * 1.2; 
-        balloon.style.width = `${balloonWidth}px`;
-        balloon.style.height = `${balloonHeight}px`;
-        balloon.style.transform = `translateX(-50%)`;
-
-        // Make the balloon fly once fully inflated
-        if (balloonData.clickCount >= maxInflation && !balloonData.isFloating) {
-            makeBalloonFly(balloonData);
-        }
-    }
 
     // Start making the balloon fly once it is inflated
     function makeBalloonFly(balloonData) {
@@ -164,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update the position of the balloon on each frame
         function updatePosition() {
-            const balloonRect = balloon.getBoundingClientRect();
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
 
@@ -283,33 +286,116 @@ document.addEventListener("DOMContentLoaded", () => {
         updatePosition();
     }
 
-    // Trigger a balloon "pop" with particles
-    function triggerBlast(balloonData) {
-        if (!balloonData.isFloating || gamePaused) return;
+    // Variables to control speed
+let pumpInterval = 180; // Initial interval in milliseconds
+let pumpingSpeed = 200; // Initial pumping animation duration in milliseconds
 
-        const balloon = balloonData.element;
-        const rect = balloon.getBoundingClientRect();
+// Function to dynamically adjust game speed
+function adjustGameSpeed() {
+    if (score >= 10000) {
+        const milestone = Math.floor(score / 10000);
+        pumpInterval = Math.max(50, 180 - milestone * 20); // Decrease interval to a minimum of 50ms
+        pumpingSpeed = Math.max(100, 200 - milestone * 10); // Decrease pumping animation duration to a minimum of 100ms
 
-        // Get the center position of the balloon for the blast
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+        // Clear and restart the pump action interval with the new speed
+        clearInterval(pumpActionInterval);
+        pumpActionInterval = setInterval(pumpAction, pumpInterval);
+    }
+}
 
-        // Create particles for the blast effect
-        createRealisticParticles(centerX, centerY, 3);
+// Update the pump action logic with dynamic animation timing
+function pumpAction() {
+    if (gamePaused || isPumping) return;
 
-        // Apply blast animation and play sound
-        balloon.classList.add("balloon-blast");
-        const popSound = document.getElementById("popSound");
-        if (popSound) {
-            popSound.currentTime = 0; 
-            popSound.play();
+    isPumping = true;
+
+    pumpHandle.classList.add("pumping");
+    airPumpMachine.classList.add("pumping");
+    airNuzzle.classList.add("pumping");
+
+    // Adjust pumping animation duration dynamically
+    setTimeout(() => {
+        if (balloons.length === 0 || balloons.every(b => b.isFloating || !isBalloonVisible(b))) {
+            createBalloon();
         }
 
-        // Remove balloon after animation
-        setTimeout(() => {
-            removeBalloon(balloonData);
-        }, 300); // Match animation duration
+        const currentBalloon = balloons.find(b => !b.isFloating && isBalloonVisible(b));
+        if (currentBalloon) {
+            positionBalloonAtNozzle(currentBalloon);
+            inflateBalloon(currentBalloon);
+        }
+    }, pumpingSpeed / 2);
+
+    setTimeout(() => {
+        pumpHandle.classList.remove("pumping");
+        airPumpMachine.classList.remove("pumping");
+        airNuzzle.classList.remove("pumping");
+        isPumping = false;
+    }, pumpingSpeed);
+
+    // Adjust the game speed based on score
+    adjustGameSpeed();
+}
+
+// Start the initial pump action interval
+let pumpActionInterval = setInterval(pumpAction, pumpInterval);
+
+// Ensure adjustGameSpeed is called whenever the score changes
+function triggerBlast(balloonData) {
+    if (!balloonData.isFloating || balloonData.isPopped || gamePaused) return;
+
+    balloonData.isPopped = true;
+
+    const balloon = balloonData.element;
+    const rect = balloon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const pointDisplay = document.createElement("div");
+    pointDisplay.classList.add('+', "point-display");
+    pointDisplay.textContent = '+' + balloonData.score;
+    pointDisplay.style.position = "absolute";
+    pointDisplay.style.left = `${centerX - 20}px`;
+    pointDisplay.style.top = `${centerY - 20}px`;
+    pointDisplay.style.fontSize = "20px";
+    pointDisplay.style.color = "rgb";
+    pointDisplay.style.fontWeight = "bold";
+    pointDisplay.style.transition = "all 1s ease-out";
+    pointDisplay.style.opacity = "0";
+
+    gameArea.appendChild(pointDisplay);
+
+    setTimeout(() => {
+        pointDisplay.style.opacity = "1";
+        pointDisplay.style.transform = "translateY(-30px)";
+    }, 0);
+
+    setTimeout(() => {
+        pointDisplay.remove();
+    }, 1000);
+
+    createRealisticParticles(centerX, centerY, 3);
+
+    balloon.classList.add("balloon-blast");
+    const popSound = document.getElementById("popSound");
+    if (popSound) {
+        popSound.currentTime = 0;
+        popSound.play();
     }
+
+    score += balloonData.score;
+    scoreDisplay.innerText = `Score: ${score}`;
+
+    // Adjust game speed after updating score
+    adjustGameSpeed();
+
+    setTimeout(() => {
+        removeBalloon(balloonData);
+    }, 300);
+}
+
+    
+    
 
     // Create realistic particles for the blast effect
     function createRealisticParticles(x, y, blastRadius) {
@@ -368,32 +454,109 @@ document.addEventListener("DOMContentLoaded", () => {
     pauseButton.addEventListener("click", () => {
         if (gamePaused) {
             resumeGame();
+            pauseButton.innerHTML = "Pause";
         } else {
             pauseGame();
+            pauseButton.innerHTML = "Resume";
         }
     });
 
     // Start the pump action interval
-    setInterval(pumpAction, 168);
+    setInterval(pumpAction, 180);
 
-    // Function to auto-adjust layout based on screen size and aspect ratio
-    function adjustLayout() {
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
+   
+// Function to adjust elements based on display size
+function adjustElements() {
+    const width = window.innerWidth;
+    // Get references to the necessary DOM elements
+    const airPumpMachine = document.getElementById("air_pump_machine");
+    const pumpHandle = document.getElementById("pump_handle");
+    const airNuzzle = document.getElementById("air_nuzzle");
 
-        // Calculate the aspect ratio and scale the game accordingly
-        const scaleX = screenWidth / AuthenticatorAssertionResponse;
-        const scaleY = screenHeight / AuthenticatorAssertionResponse;
-        const scale = Math.min(scaleX, scaleY); // Choose the smaller scale factor to maintain aspect ratio
+    if (width < 768) {
+        // For smaller screens (mobile)
+        airPumpMachine.style.left = "75rem";
+        airPumpMachine.style.top = "85rem";
+        airPumpMachine.style.width = "auto";
 
-        // Apply scaling transformation to the game area
-        gameArea.style.transform = `scale(${scale})`;
-        gameArea.style.transformOrigin = "top left"; // Ensure scaling happens from the top-left corner
+        pumpHandle.style.left = "77rem";
+        pumpHandle.style.top = "80rem";
+        pumpHandle.style.width = "60px";
+
+        airNuzzle.style.left = "70%";
+        airNuzzle.style.top = "85%";
+        airNuzzle.style.width = "auto";
+    } else if (width < 1024) {
+        // For medium-sized screens (tablet)
+        airPumpMachine.style.left = "80%";
+        airPumpMachine.style.top = "75%";
+        airPumpMachine.style.width = "auto";
+
+        pumpHandle.style.left = "82%";
+        pumpHandle.style.top = "70%";
+        pumpHandle.style.width = "70px";
+
+        airNuzzle.style.left = "75%";
+        airNuzzle.style.top = "75%";
+        airNuzzle.style.width = "auto";
+    } else {
+        // For larger screens (desktop)
+        airPumpMachine.style.left = "107rem";
+        airPumpMachine.style.top = "45rem";
+        airPumpMachine.style.width = "auto";
+
+        pumpHandle.style.left = "106rem";
+        pumpHandle.style.top = "37rem";
+        pumpHandle.style.width = "auto";
+
+        airNuzzle.style.left = "99.3rem";  // Adjust as needed for large screens
+        airNuzzle.style.top = "43rem";     // Adjust as needed for large screens
+        airNuzzle.style.width = "auto";
     }
 
-    // Listen for window resize events to adjust layout dynamically
-    window.addEventListener("resize", adjustLayout);
+    
+}
 
-    // Initial layout adjustment
-    adjustLayout();
+// Function to position the balloon at the nozzle dynamically
+function positionBalloonAtNozzle(balloonData) {
+    const airNuzzle = document.getElementById("air_nuzzle");
+    const balloon = balloonData.element;
+
+    // Get the current position and dimensions of the nozzle
+    const nozzleRect = airNuzzle.getBoundingClientRect();
+
+    // Set the position of the balloon relative to the nozzle
+    balloon.style.opacity = "1";
+    balloon.style.position = "absolute"; // Ensure absolute positioning
+    balloon.style.left = `${nozzleRect.left + nozzleRect.width / 2 -55}px`; // Center horizontally
+    balloon.style.top = `${nozzleRect.top - balloon.offsetHeight/2-35}px`; // Position directly above the nozzle
+
+    // Set the initial balloon scale to 0 for inflation effect
+    balloon.style.transform = "translateX(0) translateY(20) scale(0)";
+}
+
+
+// Adjust balloon position when the screen size changes
+window.addEventListener("load", adjustElements);
+window.addEventListener("resize", adjustElements);
+
+  function checkOrientation() {
+    const gameArea = document.getElementById("gameArea");
+    const orientationMessage = document.getElementById("orientationMessage");
+
+    if (window.innerWidth > window.innerHeight) {
+        // Landscape mode
+        gameArea.style.display = "block";
+        orientationMessage.style.display = "none";
+    } else {
+        // Portrait mode
+        gameArea.style.display = "none";
+        orientationMessage.style.display = "flex"; // Center the message
+    }
+}
+
+// Run the check on load and resize
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
+
 });
