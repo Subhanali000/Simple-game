@@ -233,7 +233,13 @@ body {
 /* Orientation Message */
 #orientationMessage {
   size: 340rem; /* Set the size */
-  display: none; /* Hidden in landscape mode */
+  display: flex; /* Hidden in landscape mode */
+  position: absolute;
+  top: 10%; /* Position at the top */
+  width: 100%; /* Full width */
+  -webkit-text-stroke: 1px #b310e5; /* Corrected stroke property */
+  font-weight: bolder;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   align-items: center; /* Center align items */
   justify-content: center; /* Center justify content */
   background-repeat: no-repeat; /* Prevent background repeat */
@@ -270,7 +276,7 @@ body {
   left: 0; /* Align to left */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  background-image: url('/images/bg\ images\ 3.jpg'); /* Set background image */
+ background-image: url('/images/hub.jpg'); /* Set background image */
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the background image */
   z-index: -1; /* Place behind other content */
@@ -287,14 +293,28 @@ body {
   transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth transition for opacity and transform */
   z-index: 10; /* Ensure it's above other elements */
 }
+#name {
+  position: absolute; /* Ensure the element is positioned absolutely */
+  top: 4rem; /* Position from the top */
+  left: 70rem; /* Position from the left */
+  width: 50%; /* Set the width */
+  height: 23%; /* Set the height */
+  font-size: 3rem;
+  font-weight: bolder; /* Set the font size */
+  color: transparent; /* Set the text color */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; /* Set the font family */
+  opacity: 1; /* Ensure the element is fully visible */
+   /* Set a semi-transparent background color */
+  -webkit-text-stroke: 0.5px black; /* Add a black stroke to the text */
+}
 
 /* Score Display */
 #scoreDisplay {
   width: 17rem; /* Set the width of the box */
   height: 4rem; /* Set the height of the box */
   border-radius: 10rem; /* Set the border radius */
-  background-image: url(/images/bg\ image.jpeg); /* Set the background image */
-  background-repeat: no-repeat; /* Prevent background repeat */
+ 
+  background-color: rgb(120, 214, 254);
   background-size: 270px; /* Set background size */
   background-position: center; /* Center the background image */
   border: 2px solid #000; /* Set the border of the box */
